@@ -7,7 +7,7 @@ const program = require('commander');
 const path = require('path');
 
 program
-  .usage('-h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName]')
+  .usage('-h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName] --i [egg_delegate]')
   .version(require('../package.json').version)
   .option('-h, --host [host]', 'hostname or ip for the database', 'localhost')
   .option('-d, --database <database>', 'database name')
@@ -20,6 +20,7 @@ program
   .option('-e, --dialect [dialect]', 'database dialect, such as mysql, mssql, sqlite', 'mysql')
   .option('-a, --additional <file>', 'JSON file containing model definitions for Sequelize\'s constructor')
   .option('-t, --tables <names>', 'comma-separated names of tables to import')
+  .option('-i, --egg_delegate [egg_delegate]', 'egg_delegate name','')
   .option('-T, --skip-tables <names>', 'comma-separated names of tables to skip')
   .option('-C, --camel', 'use camel case to name models and fields')
   .parse(process.argv);
@@ -34,7 +35,7 @@ const config = {
   username: program.user || 'root',
   password: program.pass || null,
   addtional: !!program.addtional ? require(path.resolve(program.addtional)) : {},
-
+  egg_delegate: program.egg_delegate || '',
   spaces: true,
   indentation: 2,
   directory: program.output || path.join(process.cwd(), './app/model'),

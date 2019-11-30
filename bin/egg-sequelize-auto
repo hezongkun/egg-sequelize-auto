@@ -7,7 +7,7 @@ const program = require('commander');
 const path = require('path');
 
 program
-  .usage('-h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName] --i [egg_delegate]')
+  .usage('-h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName]')
   .version(require('../package.json').version)
   .option('-h, --host [host]', 'hostname or ip for the database', 'localhost')
   .option('-d, --database <database>', 'database name')
@@ -41,7 +41,7 @@ const config = {
   directory: program.output || path.join(process.cwd(), './app/model'),
   tables: !!program.tables ? program.tables.split(',') : null,
   skipTables: !!program.skipTables ? program.skipTables.split(',') : null,
-  camelCase: !!program.camelCase
+  camelCase: !!program.camel
 };
 
 if (!!program.config) {
